@@ -17,7 +17,7 @@ function App() {
     <Main>
       {!advice ? (
         <div>
-          <p>Just Breath</p>
+          <p>Just Breathe</p>
         </div>
       ) : (
         <p>{advice.advice}</p>
