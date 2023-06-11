@@ -1,7 +1,10 @@
 import { styled } from "styled-components";
 import React, { useEffect, useState } from "react";
+import GlobalStyles from "./GlobalStyles.js";
+import { TiLightbulb } from "react-icons/ti";
 
 function App() {
+  const [dark, setDark] = useState(true);
   const [advice, setAdvice] = useState("");
   const [show, setShow] = useState(true);
   const [clickCount, setClickCount] = useState(0);
@@ -26,28 +29,41 @@ function App() {
     setShow(false);
     setClickCount(clickCount + 1);
   };
+
+  const handleClick2 = () => {
+    setDark(!dark);
+  };
   return (
-    <Main>
-      <H1>Scan For Advice</H1>
-      <Intro>
-        Hey there, I understand that times can be tough, and I wanted to remind
-        you that brighter days are ahead. It may not be clear when exactly
-        things will improve, but they will. Sometimes the road gets bumpy, and
-        it feels like there's no end in sight, but trust me, there is.
-      </Intro>
-      {!advice ? (
-        <LoadingDiv>
-          <p>Just Breathe</p>
-        </LoadingDiv>
-      ) : (
-        <>
-          <P show={show.toString()}>
-            {advice.advice.replace(/[^a-zA-Z0-9]/g, " ")}
-          </P>
-        </>
-      )}
-      <Button onClick={handleClick}>Scan for Advice</Button>
-    </Main>
+    <>
+      <GlobalStyles dark={dark} />
+      <Main>
+        <H1>Scan For Advice</H1>
+        <Intro>
+          Hey there, I understand that times can be tough, and I wanted to
+          remind you that brighter days are ahead. It may not be clear when
+          exactly things will improve, but they will. Sometimes the road gets
+          bumpy, and it feels like there's no end in sight, but trust me, there
+          is.
+        </Intro>
+        {!advice ? (
+          <LoadingDiv>
+            <p>Just Breathe</p>
+          </LoadingDiv>
+        ) : (
+          <>
+            <P show={show.toString()}>
+              {advice.advice.replace(/[^a-zA-Z0-9]/g, " ")}
+            </P>
+          </>
+        )}
+        <Button onClick={handleClick} dark={dark.toString()}>
+          Scan for Advice
+        </Button>
+      </Main>
+      <Button2 onClick={handleClick2}>
+        <LightBulb dark={dark.toString()} />
+      </Button2>
+    </>
   );
 }
 
@@ -98,13 +114,29 @@ const P = styled.p`
 
 const Button = styled.button`
   padding: 10px 30px;
-  background-color: black;
-  color: white;
+  background-color: ${(props) => (props.dark === "true" ? "black" : "white")};
+  color: ${(props) => (props.dark === "true" ? "white" : "black")};
   border: none;
   border-radius: 20px;
   margin-top: 20px;
   margin-bottom: 40px;
   cursor: pointer;
+`;
+
+const Button2 = styled.button`
+  background: none;
+  border: none;
+  font-size: 30px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+
+  :hover {
+    cursor: pointer;
+  }
+`;
+const LightBulb = styled(TiLightbulb)`
+  color: ${(props) => (props.dark === "true" ? "black" : "white")};
 `;
 
 export default App;

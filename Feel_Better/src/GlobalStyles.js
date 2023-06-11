@@ -1,4 +1,5 @@
 import { createGlobalStyle } from "styled-components";
+
 export default createGlobalStyle`
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -20,6 +21,8 @@ time, mark, audio, video {
 	font: inherit;
 	vertical-align: baseline;
   font-family: 'Libre Barcode 39 Text', cursive;
+  background-color: ${(props) => (props.dark ? "white" : "black")};
+  color:${(props) => (props.dark ? "black" : "white")};
 }
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, 
