@@ -3,24 +3,28 @@ import React, { useEffect, useState } from "react";
 
 function App() {
   const [advice, setAdvice] = useState("");
-  const [load, setLoad] = useState(true);
+  const [show, setShow] = useState(true);
+  const [clickCount, setClickCount] = useState(0);
 
   const audio = new Audio(`/scanner.mp3`);
 
   useEffect(() => {
-    fetch(`https://api.adviceslip.com/advice`)
-      .then((response) => response.json())
-      .then((data) => {
-        setAdvice(data.slip);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, [load]);
+    if (clickCount > 0) {
+      fetch(`https://api.adviceslip.com/advice`)
+        .then((response) => response.json())
+        .then((data) => {
+          setAdvice(data.slip);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }, [clickCount]);
 
   const handleClick = () => {
     audio.play();
-    setLoad(!load);
+    setShow(false);
+    setClickCount(clickCount + 1);
   };
   return (
     <Main>
@@ -32,15 +36,17 @@ function App() {
         it feels like there's no end in sight, but trust me, there is.
       </Intro>
       {!advice ? (
-        <div>
+        <LoadingDiv>
           <p>Just Breathe</p>
-        </div>
+        </LoadingDiv>
       ) : (
         <>
-          <P>{advice.advice.replace(/[,;'"!?:]/g, " ")}</P>
-          <button onClick={handleClick}>Scan for Advice</button>
+          <P show={show.toString()}>
+            {advice.advice.replace(/[^a-zA-Z0-9]/g, " ")}
+          </P>
         </>
       )}
+      <Button onClick={handleClick}>Scan for Advice</Button>
     </Main>
   );
 }
@@ -80,9 +86,24 @@ const Intro = styled.p`
   }
 `;
 
+const LoadingDiv = styled.div`
+  display: none;
+`;
 const P = styled.p`
+  display: ${(props) => (props.show === "true" ? "none" : "inline")};
   font-size: 3em;
   text-align: center;
   line-height: 150%;
 `;
+
+const Button = styled.button`
+  padding: 10px 30px;
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  margin-top: 20px;
+  cursor: pointer;
+`;
+
 export default App;
