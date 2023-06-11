@@ -103,6 +103,7 @@ const Button = styled.button`
   border: none;
   border-radius: 20px;
   margin-top: 20px;
+  margin-bottom: 40px;
   cursor: pointer;
 `;
 
