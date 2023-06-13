@@ -1,7 +1,7 @@
 # Scan For Advice
 After completing a full-stack boot camp, I found myself struggling with the next steps. I often felt lost when it came to searching for a job, figuring out how to continue learning, and determining whether I was truly prepared for a developer position.
 
-Through this small frontend project, my aim is to offer a moment to pause and take a breath. By simply scanning, you will receive random life advice.
+Through this small frontend project, my aim is to offer a moment to pause and take a breath. By simply `scanning`, you will receive random life advice.
 
 Remember, life is both too short and very long. Try to cherish the little moments.
 
